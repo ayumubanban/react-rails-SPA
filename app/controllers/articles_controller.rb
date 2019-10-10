@@ -21,7 +21,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
-      render :show, status: :created, location: @article
+      render "show", :formats => [:json], :handlers => [:jbuilder], status: :created, location: @article
     else
       render json: @article.errors, status: :unprocessable_entity
     end
@@ -31,7 +31,7 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1.json
   def update
     if @article.update(article_params)
-      render :show, status: :ok, location: @article
+      render "show", :formats => [:json], :handlers => [:jbuilder], status: :ok, location: @article
     else
       render json: @article.errors, status: :unprocessable_entity
     end
