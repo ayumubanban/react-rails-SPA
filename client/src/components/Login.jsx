@@ -12,14 +12,14 @@ class Login extends Component {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const request = { "email": email, "password": password };
-        console.log(request)
+        // console.log(request)
         post('/auth/sign_in', request)
             .then(response => {
                 localStorage.setItem("access-token", response.headers["access-token"]);
                 localStorage.setItem("client", response.headers.client);
                 localStorage.setItem("uid", response.headers.uid);
-                console.log(response);
-                console.log(localStorage);
+                // console.log(response);
+                // console.log(localStorage);
                 this.props.history.push("/");
             })
             .catch(error => console.log('error', error));

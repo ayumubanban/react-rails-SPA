@@ -18,6 +18,7 @@ class ArticleList extends Component {
                 this.setState({ articles: response.data })
             })
             .catch(error => console.log('error', error));
+
     }
 
     render() {

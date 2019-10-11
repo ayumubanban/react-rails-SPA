@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   }
 
   scope "/api" do
-    resources :articles
+    resources :articles do
+      get "is_logged_in", :on => :collection
+    end
   end
 end

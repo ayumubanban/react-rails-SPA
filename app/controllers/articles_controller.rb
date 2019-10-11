@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:is_logged_in]
 
   # GET /articles
   # GET /articles.json
@@ -41,6 +41,17 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1.json
   def destroy
     @article.destroy
+  end
+
+  # GET /articles/is_logged_in
+  def is_logged_in
+    if user_signed_in?
+      is_logged_in = {"is_logged_in" => true}
+      render :json => is_logged_in
+    else
+      is_logged_in = {"is_logged_in" => false}
+      render :json => is_logged_in
+    end
   end
 
   private
