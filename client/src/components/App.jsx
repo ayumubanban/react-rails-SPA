@@ -13,12 +13,14 @@ import Navigation from "./Navigation"
 class App extends Component {
   render() {
     return (
+
       <Router>
         <div className="container">
           <Navigation {...localStorage} />
           <Main />
         </div>
       </Router>
+
     );
   }
 }
