@@ -66,8 +66,12 @@ class Navigation extends Component {
         // let links = this.state.isLoggedIn ?
         let links = isLoggedIn ?
             <li className="nav-item"><NavLink exact className="nav-link" to="/logout">Log Out</NavLink></li>
-            :
-            <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/login">Log In</NavLink></li>
+            : (
+                <div>
+                    <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/signup">Sign Up</NavLink></li>
+                    <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/login">Log In</NavLink></li>
+                </div>
+            )
 
         return (<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <ul className="navbar-nav mr-auto">

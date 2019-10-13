@@ -9,6 +9,7 @@ import ArticleAdd from './ArticleAdd';
 import ArticleEdit from './ArticleEdit';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Navigation from "./Navigation"
+import SignUp from "./SignUp"
 
 class App extends Component {
   render() {
@@ -29,6 +30,7 @@ class App extends Component {
 const Main = () => (
   <Switch>
     <Route exact path="/" component={Home} />
+    <Route exact path="/signup" component={SignUp} />
     <Route exact path="/login" component={Login} />
     <Route exact path="/logout" component={Logout} />
     <Route exact path="/articles" component={ArticleList} />
