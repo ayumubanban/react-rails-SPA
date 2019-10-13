@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { post } from "axios";
 
 class SignUp extends Component {
-  constructor() {
-    super();
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  // constructor() {
+  //   super();
+  //   this.handleSubmit = this.handleSubmit.bind(this);
+  // }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;

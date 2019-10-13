@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { post } from 'axios';
 
 class Login extends Component {
-    constructor() {
-        super()
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+    // constructor() {
+    //     super()
+    //     this.handleSubmit = this.handleSubmit.bind(this);
+    // }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         event.preventDefault();
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
