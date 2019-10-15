@@ -17,7 +17,7 @@ class App extends Component {
 
       <Router>
         <div className="container">
-          <Navigation {...localStorage} />
+          <Navigation />
           <Main />
         </div>
       </Router>

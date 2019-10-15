@@ -1,5 +1,5 @@
 const initState = {
-  isSignedIn: true,
+  isSignedIn: localStorage["access-token"] ? true : false,
   authError: null
 }
 
@@ -37,6 +37,13 @@ const authReducer = (state = initState, action) => {
       return {
         ...state,
         authError: action.err.message
+      };
+    case "SIGNIN_SUCCESS":
+      console.log("signin success");
+      return {
+        ...state,
+        isSignedIn: true,
+        authError: null
       };
     default:
       return state;

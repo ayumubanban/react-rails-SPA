@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom'
 import axios from 'axios';
+import { connect } from "react-redux";
 
 class Navigation extends Component {
 
@@ -30,7 +31,11 @@ class Navigation extends Component {
 
     // }
 
+
     render(){
+        const { isSignedIn } = this.props;
+        console.log(isSignedIn)
+
 
         // let accessToken = localStorage.getItem("access-token");
         // let client = localStorage.getItem("client");
@@ -45,26 +50,26 @@ class Navigation extends Component {
         //     .catch(error => console.log('error', error));
 
         // console.log("rendered")
-        let isLoggedIn = false;
-        if (this.props["access-token"]){
-            // this.setState({
-            //     isLoggedIn: true
-            // })
-            isLoggedIn = true
-        } else{
-            // this.setState({
-            //     isLoggedIn: false
-            // })
-            isLoggedIn = false;
-        }
+        // let isLoggedIn = false;
+        // if (this.props["access-token"]){
+        //     // this.setState({
+        //     //     isLoggedIn: true
+        //     // })
+        //     isLoggedIn = true
+        // } else{
+        //     // this.setState({
+        //     //     isLoggedIn: false
+        //     // })
+        //     isLoggedIn = false;
+        // }
 
         console.log("rendered")
-        console.log(isLoggedIn)
+        // console.log(isLoggedIn)
 
         // const links = this.props["access-token"] ?
 
         // let links = this.state.isLoggedIn ?
-        let links = isLoggedIn ?
+        let links = isSignedIn ?
             <li className="nav-item"><NavLink exact className="nav-link" to="/logout">Log Out</NavLink></li>
             : (
                 <div>
@@ -83,6 +88,12 @@ class Navigation extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+        isSignedIn: state.auth.isSignedIn
+    }
+}
 
-
-export default withRouter(Navigation);
+// export default withRouter(Navigation);
+export default connect(mapStateToProps)(Navigation);
