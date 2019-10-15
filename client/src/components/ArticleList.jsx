@@ -29,6 +29,8 @@ class ArticleList extends Component {
                         <div key={article.id}>
                             <h2><Link to={`/articles/${article.id}`}>{article.title}</Link></h2>
                             {article.content}
+                            <br/>
+                            ユーザー名：{article.username}
                             <hr />
                         </div>
                     )

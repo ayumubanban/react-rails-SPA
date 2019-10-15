@@ -40,6 +40,7 @@ class ArticleInfo extends Component {
             <div>
                 <h2>{this.state.article.id}: {this.state.article.title}</h2>
                 <p>{this.state.article.content}</p>
+                ユーザー名：{this.state.article.username}
                 <p>
                     <Link to={`/articles/${this.state.article.id}/edit`} className="btn btn-outline-dark">Edit</Link>
                     <button onClick={this.handleDelete} className="btn btn-outline-dark">Delete</button>
