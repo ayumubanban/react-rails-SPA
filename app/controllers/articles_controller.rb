@@ -1,24 +1,32 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
-  before_action :authenticate_user!, except: [:is_logged_in]
+  # *　ログインユーザー制限一時解除
+  # before_action :authenticate_user!, except: [:is_logged_in]
 
   # GET /articles
   # GET /articles.json
   def index
     @articles = Article.all
-    render "index", :formats => [:json], :handlers => [:jbuilder]
+    # render "index", :formats => [:json]
+    render json: @articles
   end
 
   # GET /articles/1
   # GET /articles/1.json
   def show
-    render "show", :formats => [:json], :handlers => [:jbuilder]
+    # render "show", :formats => [:json], :handlers => [:jbuilder]
+
+    # @user = @article.user
+    render json: @article
+    # render json: @user
   end
 
   # POST /articles
   # POST /articles.json
   def create
     @article = Article.new(article_params)
+    @article.user_id = current_user.id
+    @article.username = current_user.name
 
     if @article.save
       render "show", :formats => [:json], :handlers => [:jbuilder], status: :created, location: @article
