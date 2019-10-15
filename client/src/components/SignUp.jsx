@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { post } from "axios";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { signUp } from "../actions/authActions";
 
 class SignUp extends Component {
   // constructor() {
@@ -23,15 +26,20 @@ class SignUp extends Component {
         localStorage.setItem("client", response.headers.client);
         localStorage.setItem("uid", response.headers.uid);
 
-        console.log(response);
-        console.log(localStorage)
-        // console.log(localStorage);
-        this.props.history.push("/");
+        // console.log(response);
+        // console.log(localStorage)
+
+        // this.props.history.push("/");
+        this.props.signUp();
       })
       .catch(error => console.log("error", error));
   }
 
   render() {
+
+    const { authError, isSignedIn } = this.props;
+    if (isSignedIn) return <Redirect to="/" />;
+
     return (
       <div>
         <h1>Sign Up</h1>
@@ -83,4 +91,17 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+const mapStateToProps = state => {
+  return {
+    authError: state.auth.authError,
+    isSignedIn: state.auth.isSignedIn
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    signUp: () => dispatch(signUp())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
