@@ -7,7 +7,9 @@ class ArticleInfo extends Component {
         super();
         this.state = {
           article: {},
-          favorites: []
+          favorites: [],
+          current_user: {},
+          isFavorited: 0
         };
         this.handleDelete = this.handleDelete.bind(this);
     }
@@ -19,10 +21,13 @@ class ArticleInfo extends Component {
         let uid = localStorage.getItem("uid");
         axios({ method: 'get', url: `/api/articles/${this.props.match.params.id}.json`, headers: { 'access-token': accessToken, "client": client, "uid": uid } })
             .then((response) => {
-                this.setState({
-                    article: response.data.article,
-                    favorites: response.data.favorites
-                })
+              console.log(response)
+              this.setState({
+                article: response.data.article,
+                favorites: response.data.favorites,
+                current_user: response.data.current_user
+              })
+              console.log(this.state)
             })
             .catch(error => console.log('error', error));
     }
@@ -39,7 +44,108 @@ class ArticleInfo extends Component {
             .catch(error => console.log('error', error));
     }
 
+    favoriteAdd = () => {
+      let accessToken = localStorage.getItem("access-token");
+      let client = localStorage.getItem("client");
+      let uid = localStorage.getItem("uid");
+
+      axios({
+        method: "post",
+        url: `/api/articles/${this.props.match.params.id}/favorites`,
+        headers: { "access-token": accessToken, client: client, uid: uid },
+        // * これ、this.props.match.params.idが整数なのか、ちゃんと渡せているのか、怪しい
+        data: { article_id: this.props.match.params.id }
+      })
+        .then((response) => {
+          console.log("post", response)
+          // this.props.history.push(`/articles/${this.props.match.params.id}`);
+
+          axios({
+            method: "get",
+            url: `/api/articles/${this.props.match.params.id}.json`,
+            headers: { "access-token": accessToken, client: client, uid: uid }
+          })
+            .then(response => {
+              console.log("get", response);
+              this.setState({
+                favorites: response.data.favorites
+              });
+            })
+            .catch(error => console.log("error", error));
+
+        })
+        .catch(error => console.log("error", error));
+
+      // axios({
+      //   method: "get",
+      //   url: `/api/articles/${this.props.match.params.id}.json`,
+      //   headers: { "access-token": accessToken, client: client, uid: uid }
+      // })
+      //   .then(response => {
+      //     console.log("get", response);
+      //     this.setState({
+      //       favorites: response.data.favorites
+      //     });
+      //   })
+      //   .catch(error => console.log("error", error));
+    }
+
+    favoriteDelete = () => {
+      let accessToken = localStorage.getItem("access-token");
+      let client = localStorage.getItem("client");
+      let uid = localStorage.getItem("uid");
+      axios({
+        method: "delete",
+        url: `/api/articles/${this.props.match.params.id}/favorites`,
+        headers: { "access-token": accessToken, client: client, uid: uid }
+      })
+        .then((response) => {
+          console.log("delete" ,response)
+          // this.props.history.push(`/articles/${this.props.match.params.id}`);
+          axios({
+            method: "get",
+            url: `/api/articles/${this.props.match.params.id}.json`,
+            headers: { "access-token": accessToken, client: client, uid: uid }
+          })
+            .then(response => {
+              console.log("get", response);
+              this.setState({
+                favorites: response.data.favorites
+              });
+            })
+            .catch(error => console.log("error", error));
+
+        })
+        .catch(error => console.log("error", error));
+
+      // axios({
+      //   method: "get",
+      //   url: `/api/articles/${this.props.match.params.id}.json`,
+      //   headers: { "access-token": accessToken, client: client, uid: uid }
+      // })
+      //   .then(response => {
+      //     console.log(response);
+      //     this.setState({
+      //       favorites: response.data.favorites
+      //     });
+      //   })
+      //   .catch(error => console.log("error", error));
+    }
+
     render() {
+
+      let isFavorited = this.state.favorites.filter(favorite => favorite.user_id === this.state.current_user.id).length
+      console.log(isFavorited)
+      let favorite_button = isFavorited ? (
+        <button className="btn btn-warning" onClick={this.favoriteDelete}>
+          お気に入り解除
+        </button>
+      ) : (
+        <button className="btn btn-dark" onClick={this.favoriteAdd}>
+          お気に入り登録
+        </button>
+      );
+
         return (
           <div>
             お気に入り数：{this.state.favorites.length}
@@ -69,6 +175,8 @@ class ArticleInfo extends Component {
                 Close
               </Link>
             </p>
+            <br/>
+            {favorite_button}
             <hr />
           </div>
         );

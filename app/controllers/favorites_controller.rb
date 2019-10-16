@@ -1,4 +1,6 @@
 class FavoritesController < ApplicationController
+  # * before_action :authenticate_user!はひとまず保留。ほんまにいるんかどうかはわからんので
+
   def create
     @favorite = current_user.favorites.build(article_id: params[:article_id])
     if @favorite.save
@@ -14,7 +16,7 @@ class FavoritesController < ApplicationController
   end
 
   def tmp
-    @favorite = Favorite.find(params[:article_id])
+    @favorite = Favorite.find_by(article_id: params[:article_id])
     render json: @favorite
   end
 end
