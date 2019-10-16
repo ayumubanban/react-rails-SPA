@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @articles = @user.articles
+    @favorite_articles = @user.favorite_articles
 
     # render json: @user
     # render json: @user.articles
@@ -17,7 +18,8 @@ class UsersController < ApplicationController
       # format.any
       format.json  { render :json => {
         :user => @user,
-        :articles => @articles
+        :articles => @articles,
+        :favorite_articles => @favorite_articles
       }}
     end
 

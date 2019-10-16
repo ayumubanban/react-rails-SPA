@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 class UserInfo extends Component {
   state = {
     user: {},
-    articles: []
+    articles: [],
+    favorite_articles: []
   };
 
   componentDidMount() {
@@ -20,11 +21,10 @@ class UserInfo extends Component {
       .then(response => {
         this.setState({
           user: response.data.user,
-          articles: response.data.articles
+          articles: response.data.articles,
+          favorite_articles: response.data.favorite_articles
         });
         console.log(response.data)
-        console.log(this.state.user)
-        console.log(this.state.articles)
       })
       .catch(error => console.log("error", error));
   }
@@ -45,9 +45,18 @@ class UserInfo extends Component {
               </div>
             );
           })}
-          {/* <Link to="/articles/new" className="btn btn-outline-primary">
-            Create Article
-          </Link> */}
+          <h3>↓お気に入り記事一覧↓</h3>
+          {this.state.favorite_articles.map(article => {
+            return (
+              <div key={article.id}>
+                <h2>
+                  <Link to={`/articles/${article.id}`}>{article.title}</Link>
+                </h2>
+                {article.content}
+                <hr />
+              </div>
+            );
+          })}
         </div>
       </div>
     );
