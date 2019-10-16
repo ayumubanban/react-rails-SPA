@@ -26,14 +26,21 @@ class ArticleList extends Component {
             <div>
                 {this.state.articles.map((article) => {
                     return (
-                        <div key={article.id}>
-                            <h2><Link to={`/articles/${article.id}`}>{article.title}</Link></h2>
-                            {article.content}
-                            <br/>
-                            ユーザー名：{article.username}
-                            <hr />
-                        </div>
-                    )
+                      <div key={article.id}>
+                        <h2>
+                          <Link to={`/articles/${article.id}`}>
+                            {article.title}
+                          </Link>
+                        </h2>
+                        {article.content}
+                        <br />
+                        ユーザー名：
+                        <Link to={`/users/${article.user_id}`}>
+                          {article.username}
+                        </Link>
+                        <hr />
+                      </div>
+                    );
                 })}
                 <Link to="/articles/new" className="btn btn-outline-primary">Create Article</Link>
             </div>
