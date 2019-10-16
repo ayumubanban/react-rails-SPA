@@ -10,6 +10,8 @@ import ArticleEdit from './ArticleEdit';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Navigation from "./Navigation"
 import SignUp from "./SignUp"
+import UserList from "./UserList"
+import UserInfo from "./UserInfo"
 
 class App extends Component {
   render() {
@@ -37,6 +39,8 @@ const Main = () => (
     <Route exact path="/articles/new" component={ArticleAdd} />
     <Route exact path="/articles/:id" component={ArticleInfo} />
     <Route exact path="/articles/:id/edit" component={ArticleEdit} />
+    <Route exact path="/users" component={UserList} />
+    <Route exact path="/users/:id" component={UserInfo} />
   </Switch>
 );
 
