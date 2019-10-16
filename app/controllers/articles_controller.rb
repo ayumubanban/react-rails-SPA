@@ -16,9 +16,17 @@ class ArticlesController < ApplicationController
   def show
     # render "show", :formats => [:json], :handlers => [:jbuilder]
 
-    # @user = @article.user
-    render json: @article
-    # render json: @user
+    @favorites = @article.favorites
+
+    # render json: @article
+
+    respond_to do |format|
+      # format.any
+      format.json  { render :json => {
+        :article => @article,
+        :favorites => @favorites
+      }}
+    end
   end
 
   # POST /articles
@@ -52,15 +60,15 @@ class ArticlesController < ApplicationController
   end
 
   # GET /articles/is_logged_in
-  def is_logged_in
-    if user_signed_in?
-      is_logged_in = {"is_logged_in" => true}
-      render :json => is_logged_in
-    else
-      is_logged_in = {"is_logged_in" => false}
-      render :json => is_logged_in
-    end
-  end
+  # def is_logged_in
+  #   if user_signed_in?
+  #     is_logged_in = {"is_logged_in" => true}
+  #     render :json => is_logged_in
+  #   else
+  #     is_logged_in = {"is_logged_in" => false}
+  #     render :json => is_logged_in
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

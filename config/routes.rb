@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  # get 'favorites/create'
+  # get 'favorites/destroy'
   # get 'users/index'
   # get 'users/show'
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
@@ -7,7 +9,9 @@ Rails.application.routes.draw do
 
   scope "/api" do
     resources :articles do
-      get "is_logged_in", :on => :collection
+      # get "is_logged_in", :on => :collection
+      resource :favorites, only: [:create, :destroy]
+      get "favorites/tmp"
     end
     resources :users
   end

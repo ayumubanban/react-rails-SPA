@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom';
 class ArticleInfo extends Component {
     constructor() {
         super();
-        this.state = { article: {} };
+        this.state = {
+          article: {},
+          favorites: []
+        };
         this.handleDelete = this.handleDelete.bind(this);
     }
 
@@ -14,10 +17,11 @@ class ArticleInfo extends Component {
         let accessToken = localStorage.getItem("access-token");
         let client = localStorage.getItem("client");
         let uid = localStorage.getItem("uid");
-        axios({ method: 'get', url: `/api/articles/${this.props.match.params.id}`, headers: { 'access-token': accessToken, "client": client, "uid": uid } })
+        axios({ method: 'get', url: `/api/articles/${this.props.match.params.id}.json`, headers: { 'access-token': accessToken, "client": client, "uid": uid } })
             .then((response) => {
                 this.setState({
-                    article: response.data
+                    article: response.data.article,
+                    favorites: response.data.favorites
                 })
             })
             .catch(error => console.log('error', error));
@@ -38,11 +42,16 @@ class ArticleInfo extends Component {
     render() {
         return (
           <div>
+            お気に入り数：{this.state.favorites.length}
+            <br />
             <h2>
               {this.state.article.id}: {this.state.article.title}
             </h2>
             <p>{this.state.article.content}</p>
-            ユーザー名：<Link to={`/users/${this.state.article.user_id}`}>{this.state.article.username}</Link>
+            ユーザー名：
+            <Link to={`/users/${this.state.article.user_id}`}>
+              {this.state.article.username}
+            </Link>
             <p>
               <Link
                 to={`/articles/${this.state.article.id}/edit`}

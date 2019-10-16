@@ -31,6 +31,7 @@ class UserList extends Component {
   render() {
     return (
       <div>
+        {/* {this.state.users.length} */}
         {this.state.users.map(user => {
           return (
             <div key={user.id}>
