@@ -37,18 +37,32 @@ class ArticleInfo extends Component {
 
     render() {
         return (
-            <div>
-                <h2>{this.state.article.id}: {this.state.article.title}</h2>
-                <p>{this.state.article.content}</p>
-                ユーザー名：{this.state.article.username}
-                <p>
-                    <Link to={`/articles/${this.state.article.id}/edit`} className="btn btn-outline-dark">Edit</Link>
-                    <button onClick={this.handleDelete} className="btn btn-outline-dark">Delete</button>
-                    <Link to="/articles" className="btn btn-outline-dark">Close</Link>
-                </p>
-                <hr />
-            </div>
-        )
+          <div>
+            <h2>
+              {this.state.article.id}: {this.state.article.title}
+            </h2>
+            <p>{this.state.article.content}</p>
+            ユーザー名：<Link to={`/users/${this.state.article.user_id}`}>{this.state.article.username}</Link>
+            <p>
+              <Link
+                to={`/articles/${this.state.article.id}/edit`}
+                className="btn btn-outline-dark"
+              >
+                Edit
+              </Link>
+              <button
+                onClick={this.handleDelete}
+                className="btn btn-outline-dark"
+              >
+                Delete
+              </button>
+              <Link to="/articles" className="btn btn-outline-dark">
+                Close
+              </Link>
+            </p>
+            <hr />
+          </div>
+        );
     }
 }
 
