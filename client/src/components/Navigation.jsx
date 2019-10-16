@@ -82,6 +82,7 @@ class Navigation extends Component {
             <ul className="navbar-nav mr-auto">
                 <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink></li>
                 <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/articles">Articles</NavLink></li>
+                <li className="nav-item"><NavLink exact className="nav-link" activeClassName="active" to="/users">Users</NavLink></li>
                 { links }
             </ul>
         </nav>)
