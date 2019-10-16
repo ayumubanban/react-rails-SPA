@@ -17,6 +17,7 @@ class ArticlesController < ApplicationController
     # render "show", :formats => [:json], :handlers => [:jbuilder]
 
     @favorites = @article.favorites
+    # @current_user_id = current_user.id
 
     # render json: @article
 
@@ -24,7 +25,8 @@ class ArticlesController < ApplicationController
       # format.any
       format.json  { render :json => {
         :article => @article,
-        :favorites => @favorites
+        :favorites => @favorites,
+        :current_user => current_user
       }}
     end
   end
